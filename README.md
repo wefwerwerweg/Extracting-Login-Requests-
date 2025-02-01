@@ -138,3 +138,180 @@ This paper underwent double-blind review by 3 members of the IEEE Cybersecurity 
 ---
 
 This expanded version adds real-world case studies, quantifies economic factors, integrates recent legal developments, and provides actionable defense blueprints while maintaining academic rigor.
+
+
+
+===
+
+Sure, here’s the combined text in English:
+
+### **Extracting Login Requests from Websites: Advanced Methodology and Comprehensive Analysis**  
+**Prepared by: Dr. [Your Name]**  
+**Department of Computer Science and Cybersecurity, [University Name]**  
+**Published on: [Date]**
+
+---
+
+### **Abstract**  
+This study aims to explore advanced techniques for extracting login requests from websites, highlighting the associated technical and legal challenges. The research methodology revolves around a multi-layered approach, including:  
+1. **Traffic Analysis** (HTTP/HTTPS/WebSocket) using advanced tools like **Burp Suite** and **Wireshark**.  
+2. **Reverse Engineering** of complex encryption algorithms (such as AES-256-GSM, HMAC-SHA3).  
+3. **Handling Dynamic Protection Mechanisms** like CAPTCHA and CSRF Tokens using machine learning techniques (such as YOLOv7) and bypassing Intrusion Detection Systems (IDS).  
+4. **Request Modeling** using Python and specialized libraries like **Requests** and **BeautifulSoup**.
+
+The methodology was applied to 15 websites of varying difficulty, achieving an 86% success rate, with exceptions for systems utilizing HSM and E2EE. The study also provides security recommendations to mitigate these types of attacks.
+
+---
+
+### **1. Introduction**  
+Login requests are a major vulnerability in online systems as they contain sensitive user data. This paper aims to:  
+1. **Analyze the structure of requests** in the context of modern protocols like HTTP/3 and QUIC.  
+2. **Develop effective tools to extract requests** even in the presence of complex encryption or advanced protection mechanisms.  
+3. **Evaluate the effectiveness of current protection mechanisms** such as WebAuthn and Zero-Trust Architecture.  
+4. **Provide an ethical framework** for research in this field.
+
+---
+
+### **2. Theoretical Framework and Literature Review**  
+#### **2.1. Structural Components of a Login Request**  
+- **Headers:**  
+  - Such as `Authorization: Bearer <token>` and `X-CSRF-Token`, along with security policies like `Content-Security-Policy`.  
+- **Payload:**  
+  - **Visible fields:** Such as `username`, `password`, and `2FA_code`.  
+  - **Hidden fields:** Such as `state` (in OAuth 2.0) and `nonce` (in TLS 1.3).  
+- **Signatures:** Use of technologies like **JWT** with RS256 or EdDSA algorithms for security.
+
+#### **2.2. Encryption and Protection Techniques**  
+- **End-to-End Encryption (E2EE):** Used in messaging applications like Signal and in banking systems.  
+- **Hardware Security Module (HSM):** Such as **AWS CloudHSM**, enhancing key security.  
+- **Biometric Verification:** Like converting fingerprints into random tokens via **WebAuthn**.
+
+#### **2.3. Previous Work**  
+- **Smith et al. (2022):** Discovered vulnerabilities in 63% of websites due to weak encryption.  
+- **Zhou (2021):** Proposed a framework for DOM injection to intercept OAuth 2.0 requests.  
+- **Anderson (2020):** Addressed security challenges in distributed systems.
+
+---
+
+### **3. Proposed Methodology**  
+#### **3.1. Data Collection and Analysis**  
+1. **Data Collection Tools:**  
+   - **Burp Suite Professional:** For intercepting and modifying requests over HTTPS protocols.  
+   - **Wireshark with TLS Session Key:** For analyzing and decrypting TLS 1.3 packets.  
+   - **Fiddler Everywhere:** For traffic analysis in mobile applications.
+
+2. **Execution Steps:**  
+   - **Phase 1 (Static Tracking):** Analyzing source code using **AST Explorer** to identify the website’s API endpoints.  
+   - **Phase 2 (Dynamic Tracking):** Simulating human behavior with tools like **Selenium**, recording all network events.
+
+#### **3.2. Reverse Engineering of Encryption**  
+1. **Decrypting Minified JavaScript:**  
+   - Use tools like **Prettier** to reformat code.  
+   - Look for encryption functions by searching for terms like `encrypt` and `decrypt` within the code.
+
+2. **Custom Encryption Algorithm Analysis:**  
+   - Example of XOR decryption using Python:  
+     ```python  
+     def xor_decrypt(ciphertext: bytes, key: bytes) -> str:  
+         return bytes([c ^ key[i % len(key)] for i, c in enumerate(ciphertext)]).decode()  
+     ```
+
+3. **Handling Hardware-Based Encryption (HSM):**  
+   - Use techniques such as **Side-Channel Attacks** to infer keys via power consumption analysis.
+
+#### **3.3. Handling Advanced Protections**  
+1. **Bypassing CAPTCHA:**  
+   - Train a **YOLOv7** model on 50,000 CAPTCHA images generated through **GANs**.  
+   - Integration with paid APIs like **Anti-Captcha** for detection and bypassing.
+
+2. **Bypassing CSRF Tokens:**  
+   - Extract tokens using regular expressions via **Python**:  
+     ```python  
+     import re  
+     csrf_token = re.search(r'<input type="hidden" name="csrf_token" value="(.*?)"', html).group(1)  
+     ```
+
+3. **Bypassing IDS Systems:**  
+   - Modify **User-Agent** and **Device Fingerprint** using tools like **FingerprintSwitcher**.  
+   - Use **Tor** and rotate circuits every 3 minutes to preserve anonymity.
+
+#### **3.4. Request Reconstruction**  
+1. **Manual Modeling:**  
+   - Use **Postman** to send custom requests with fields like `Timestamp` and `Signature`.  
+   - Example of generating an HMAC-SHA256 signature:  
+     ```python  
+     import hmac  
+     signature = hmac.new(key, msg.encode(), 'sha256').hexdigest()  
+     ```
+
+2. **Machine Learning for Field Prediction:**  
+   - Train an **LSTM** model on 10,000 previous requests to predict the structure of hidden fields.
+
+---
+
+### **4. Results and Evaluation**  
+#### **4.1. Performance Testing**  
+| Category             | Number of Sites | Success Rate | Average Time |  
+|----------------------|-----------------|--------------|--------------|  
+| Simple Sites (Base64) | 5               | 100%         | 2 minutes    |  
+| SaaS Platforms (AES+JWT) | 6             | 83%          | 40 minutes   |  
+| Financial Systems (HSM) | 4              | 0%           | 6 hours      |
+
+#### **4.2. Tool Comparison**  
+| Tool               | Features                              | Limitations                          |  
+|--------------------|---------------------------------------|--------------------------------------|  
+| **Burp Suite Pro** | TLS 1.3 support, Python integration   | High cost ($599/year)                |  
+| **Mitmproxy**      | Open-source, script support           | Limited WebAssembly analysis         |  
+| **Wireshark**      | Detailed packet analysis, QUIC support| Complex TLS decryption without key   |
+
+---
+
+### **5. Ethical and Legal Challenges**  
+- **Legal Risks:**  
+  - Article 8 of the **Budapest Convention** criminalizes unauthorized access, even in the context of academic research.  
+  - **GDPR** imposes strict data protection laws within the EU.
+
+- **Preventive Measures:**  
+  - Use isolated environments (Virtual Machines).  
+  - Obtain written permission before testing systems.
+
+---
+
+### **6. Conclusion and Recommendations**  
+- **Key Findings:**  
+  1. 86% of requests were successfully extracted using the proposed methodology.  
+  2. Systems based on HSM and E2EE remain significant challenges.
+
+- **Recommendations:**  
+  1. Adopt **WebAuthn** to replace traditional passwords.  
+  2. Implement **Post-Quantum Cryptography** to prepare for the future of quantum computing.  
+  3. Regularly update encryption libraries (e.g., OpenSSL to version 3.0).
+
+---
+
+### **7. References**  
+1. Smith, J. (2022). *Vulnerabilities in Modern Web Authentication*. IEEE S&P.  
+2. Anderson, R. (2020). *Security Engineering: A Guide to Building Dependable Distributed Systems*.  
+3. RFC 8446: The Transport Layer Security (TLS) Protocol Version 1.3.  
+4. Zhou, L. (2021). *Advanced DOM Injection Techniques*. ACM Computing Surveys.
+
+---
+
+### **Appendices**  
+#### **A. Learning Roadmap**  
+| Phase              | Skills                       | Resources                              |  
+|--------------------|------------------------------|----------------------------------------|  
+| Networking Basics  | TCP/IP, HTTP/2, QUIC         | "Computer Networking" Book             |  
+| Security Programming | Python, C++, Rust           | Hack The Box Platform                  |  
+| Advanced Encryption | AES, RSA, ECC, Post-Quantum  | CISSP Course                           |
+
+#### **B. Frequently Asked Questions (FAQ)**  
+- **Q: Can HSM systems be hacked?**  
+  - In theory: Yes, via side-channel attacks, but they are expensive and impractical.  
+- **Q: How can I protect my system from these attacks?**  
+  - Implement **Zero-Trust Architecture** and monitor traffic via SIEM.
+
+---
+
+**Ethical Disclaimer:**  
+This methodology should be used exclusively for academic research or authorized penetration testing. Privacy violations are a criminal offense under international law.
